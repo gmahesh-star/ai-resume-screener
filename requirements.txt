@@ -4,7 +4,8 @@ uvicorn[standard]
 python-multipart
 spacy
 scikit-learn
-torch==2.2.2+cpu
+numpy<2.0.0
+torch==2.4.1+cpu
 sentence-transformers
 pdfplumber
 python-docx
