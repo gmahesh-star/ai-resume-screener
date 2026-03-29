@@ -1,0 +1,9 @@
+We are looking for a Senior AI Engineer to join our team. The ideal candidate will have strong experience in Python, Machine Learning, and NLP. 
+
+Must-haves:
+- 5+ years of experience with Python
+- Experience building REST APIs with FastAPI or Flask
+- Knowledge of NLP tools like spaCy
+- Machine Learning frameworks like Scikit-learn, TensorFlow, or PyTorch
+- Familiarity with SQL databases and Git for version control
+- Bonus: Experience with Docker and CI/CD pipelines

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Screener — Smart Hiring Assistant</title>
+    <meta name="description" content="AI-powered resume screening tool. Upload resumes and job descriptions to instantly rank candidates based on skill matching and semantic analysis.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated background particles -->
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-3" aria-hidden="true"></div>
+
+    <div class="app-container">
+
+        <!-- Navigation Bar -->
+        <nav class="navbar" id="navbar">
+            <div class="nav-brand">
+                <div class="brand-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                </div>
+                <span class="brand-text">ResumeAI<span class="brand-dot">.</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="#upload-section" class="nav-link active" id="nav-upload">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    Upload
+                </a>
+                <a href="#results-section" class="nav-link" id="nav-results">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    Results
+                </a>
+                <a href="#history-section" class="nav-link" id="nav-history">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    History
+                </a>
+            </div>
+        </nav>
+
+        <!-- Hero Header -->
+        <header class="hero" id="hero">
+            <div class="hero-badge">
+                <span class="pulse-dot"></span>
+                AI-Powered Screening
+            </div>
+            <h1>Find the <span class="gradient-text">Perfect Candidate</span> in Seconds</h1>
+            <p class="hero-subtitle">Upload resumes and a job description — our AI engine analyzes skills, experience, and semantic relevance to rank your top candidates instantly.</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="stat-resumes">0</span>
+                    <span class="stat-label">Resumes Analyzed</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">95%</span>
+                    <span class="stat-label">Accuracy Rate</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">&lt;5s</span>
+                    <span class="stat-label">Avg. Processing</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Upload Section -->
+            <section class="upload-section glass-card" id="upload-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    </div>
+                    <div>
+                        <h2>Job Description</h2>
+                        <p class="section-desc">Paste the role requirements below</p>
+                    </div>
+                </div>
+                <div class="textarea-wrapper">
+                    <textarea id="job-description" placeholder="e.g. We are looking for a Python developer with 3+ years of experience in FastAPI, SQL, Docker, and AWS. Familiarity with CI/CD and REST API design is a plus..." rows="5"></textarea>
+                    <div class="textarea-char-count"><span id="char-count">0</span> characters</div>
+                </div>
+
+                <div class="section-header" style="margin-top: 10px;">
+                    <div class="section-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    </div>
+                    <div>
+                        <h2>Upload Resumes</h2>
+                        <p class="section-desc">PDF or DOCX format — multiple files supported</p>
+                    </div>
+                </div>
+
+                <div class="file-upload-wrapper" id="drop-zone">
+                    <input type="file" id="resume-upload" multiple accept=".pdf,.docx">
+                    <label for="resume-upload" class="upload-label" id="upload-label">
+                        <div class="upload-icon-wrapper">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="upload-svg-icon">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                        </div>
+                        <span class="upload-text">Drag & Drop files here</span>
+                        <span class="upload-hint">or click to browse • supports .pdf, .docx</span>
+                    </label>
+                    <div id="file-list" class="file-list"></div>
+                </div>
+
+                <div class="actions">
+                    <button id="analyze-btn" class="primary-btn" type="button">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        Analyze Resumes
+                    </button>
+                    <button id="clear-btn" class="secondary-btn" type="button">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        Clear All
+                    </button>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section section-hidden" id="results-section">
+                <div class="section-header">
+                    <div class="section-icon results-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    </div>
+                    <div>
+                        <h2>Analysis Results</h2>
+                        <p class="section-desc">Candidates ranked by match score</p>
+                    </div>
+                </div>
+
+                <div id="loading" class="loading" style="display: none;">
+                    <div class="loading-content">
+                        <div class="spinner-ring">
+                            <div class="spinner-ring-inner"></div>
+                        </div>
+                        <p class="loading-text">Analyzing resumes with AI engine...</p>
+                        <div class="loading-steps">
+                            <div class="load-step active" id="step-extract">
+                                <span class="step-dot"></span> Extracting text
+                            </div>
+                            <div class="load-step" id="step-parse">
+                                <span class="step-dot"></span> Parsing skills
+                            </div>
+                            <div class="load-step" id="step-match">
+                                <span class="step-dot"></span> Running matching algorithms
+                            </div>
+                            <div class="load-step" id="step-rank">
+                                <span class="step-dot"></span> Ranking candidates
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="results-container" class="results-container">
+                    <!-- Results will be injected here via JavaScript -->
+                </div>
+            </section>
+
+            <!-- History Section -->
+            <section class="history-section glass-card section-hidden" id="history-section">
+                <div class="section-header">
+                    <div class="section-icon history-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <div>
+                        <h2>Screening History</h2>
+                        <p class="section-desc">Previous analysis results</p>
+                    </div>
+                </div>
+                <div id="history-container" class="history-container">
+                    <div class="empty-state">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                        <p>No history yet. Run your first analysis above!</p>
+                    </div>
+                </div>
+                <button id="clear-history-btn" class="secondary-btn" style="margin-top: 16px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                    Clear History
+                </button>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-left">
+                <span class="footer-brand">ResumeAI<span class="brand-dot">.</span></span>
+                <span class="footer-sep">—</span>
+                <span>Smart Hiring, Simplified</span>
+            </div>
+            <div class="footer-right">
+                <span>Built with FastAPI + spaCy + Transformers</span>
+            </div>
+        </footer>
+        <!-- Chatbot Widget -->
+        <div class="chatbot-widget">
+            <!-- Chat Window (hidden by default) -->
+            <div class="chat-window" id="chat-window">
+                <div class="chat-header">
+                    <div class="chat-header-info">
+                        <div class="chat-avatar">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="chat-title">Recruitment AI</div>
+                            <div class="chat-status"><span class="status-dot"></span> Online</div>
+                        </div>
+                    </div>
+                    <button class="chat-close-btn" id="chat-close-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message bot-message">
+                        Hello! I'm your AI screening assistant. I can explain how matched scores are calculated, offer resume improvement tips, or guide you through HR best practices. How can I help?
+                    </div>
+                </div>
+
+                <div class="chat-suggestions" id="chat-suggestions">
+                    <!-- Suggestions will be injected via JS -->
+                </div>
+
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Ask about scoring, resumes..." autocomplete="off">
+                    <button class="chat-send-btn" id="chat-send-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Floating Action Button -->
+            <button class="chat-fab" id="chat-fab">
+                <div class="fab-pulse"></div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="fab-icon">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+            </button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
