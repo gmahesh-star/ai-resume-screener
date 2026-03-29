@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const steps = ['step-extract', 'step-parse', 'step-match', 'step-rank'];
 
     // The backend API address
-    const API_URL = 'http://127.0.0.1:8000';
+    const API_URL = 'https://ai-resume-screener-1p5o.onrender.com';
 
     let selectedFiles = [];
     let totalAnalyzed = parseInt(localStorage.getItem('totalAnalyzed') || '0');
